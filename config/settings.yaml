@@ -1,0 +1,37 @@
+llm:
+  backend: ollama            # ollama | openai | anthropic — applies to both unless overridden
+
+  extractor:
+    backend: ollama          # text-only, fast
+    ollama_model: llama3.2
+    openai_model: gpt-4o-mini
+    anthropic_model: claude-haiku-4-5
+    temperature: 0
+    timeout: 30
+
+  analyst:
+    backend: ollama          # multimodal, powerful
+    ollama_model: llava
+    openai_model: gpt-4o
+    anthropic_model: claude-opus-4-6
+    temperature: 0
+    timeout: 60
+
+scraper:
+  timeout: 30000
+  max_visible_text: 8000
+  max_links: 50
+  max_buttons: 30
+  max_prices: 20
+  max_urgency_hits: 10
+
+extraction:
+  languages:
+    - en
+    - tr
+  use_llm: true
+  fallback_on_error: true
+
+report:
+  max_patterns: 20
+  output: terminal           # terminal | json | both

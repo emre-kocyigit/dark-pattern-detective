@@ -1,0 +1,80 @@
+# Fallback patterns — used when LLM extraction is unavailable
+# Add patterns in any supported language
+
+urgency:
+  en:
+    - "only"
+    - "left"
+    - "limited"
+    - "hurry"
+    - "expires"
+    - "ends in"
+    - "last chance"
+    - "selling fast"
+    - "almost gone"
+    - "today only"
+    - "flash sale"
+    - "deal ends"
+    - "offer ends"
+    - "while stocks last"
+  tr:
+    - "sadece"
+    - "kaldı"
+    - "sınırlı"
+    - "acele et"
+    - "son"
+    - "bugün biter"
+    - "son şans"
+    - "hızlı satıyor"
+    - "neredeyse bitti"
+    - "fırsatı kaçırma"
+    - "kampanya bitiyor"
+    - "stoklar tükeniyor"
+
+subscription:
+  en:
+    - "auto-renew"
+    - "auto renew"
+    - "cancel anytime"
+    - "free trial"
+    - "recurring"
+    - "billing cycle"
+    - "renews automatically"
+    - "subscription"
+  tr:
+    - "otomatik yenileme"
+    - "istediğinde iptal et"
+    - "ücretsiz deneme"
+    - "abonelik"
+    - "aylık plan"
+    - "yıllık plan"
+    - "otomatik uzatma"
+    - "fatura dönemi"
+
+consent_accept:
+  en:
+    - "accept all"
+    - "accept cookies"
+    - "agree"
+    - "allow all"
+    - "i accept"
+  tr:
+    - "tümünü kabul et"
+    - "kabul ediyorum"
+    - "çerezleri kabul et"
+    - "izin ver"
+    - "tamam"
+
+consent_reject:
+  en:
+    - "reject all"
+    - "decline"
+    - "refuse"
+    - "only necessary"
+    - "manage preferences"
+  tr:
+    - "tümünü reddet"
+    - "reddet"
+    - "yalnızca gerekli"
+    - "tercihleri yönet"
+    - "vazgeç"

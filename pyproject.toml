@@ -1,0 +1,24 @@
+[project]
+name = "dark-pattern-detective"
+version = "0.1.0"
+description = "Agentic dark pattern investigator — give it a URL, it finds deceptive UI patterns"
+requires-python = ">=3.11"
+dependencies = [
+    "playwright",
+    "beautifulsoup4",
+    "langchain",
+    "langchain-openai",
+    "langchain-community",
+    "ollama",
+    "openai",
+    "typer",
+    "pydantic",
+    "rich",
+    "python-dotenv",
+]
+
+[project.scripts]
+darkpattern = "cli:app"
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["agent*", "llm*", "report*"]

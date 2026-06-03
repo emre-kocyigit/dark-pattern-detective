@@ -1,0 +1,16 @@
+Metadata-Version: 2.4
+Name: dark-pattern-detective
+Version: 0.1.0
+Summary: Agentic dark pattern investigator — give it a URL, it finds deceptive UI patterns
+Requires-Python: >=3.11
+Requires-Dist: playwright
+Requires-Dist: beautifulsoup4
+Requires-Dist: langchain
+Requires-Dist: langchain-openai
+Requires-Dist: langchain-community
+Requires-Dist: ollama
+Requires-Dist: openai
+Requires-Dist: typer
+Requires-Dist: pydantic
+Requires-Dist: rich
+Requires-Dist: python-dotenv
