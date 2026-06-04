@@ -137,6 +137,13 @@ Low-level patterns:
 
 ---
 
+## Classification rule
+Always classify at the most specific level available:
+- If a LOW-LEVEL pattern applies → use it (it implies the meso and high levels)
+- If no low-level fits but a MESO-LEVEL pattern applies → use meso-level
+- Never report high-level alone — it is too abstract to be actionable
+- Never stack all three levels for the same finding — pick the most specific one
+
 ## Output format
 
 Return ONLY a valid JSON object with this exact structure — no explanation, no markdown:
@@ -144,9 +151,9 @@ Return ONLY a valid JSON object with this exact structure — no explanation, no
 {{
   "dark_patterns_found": [
     {{
-      "high_level": "Sneaking | Obstruction | Interface Interference | Forced Action | Social Engineering",
-      "meso_level": "pattern name from ontology",
-      "low_level": "specific pattern name if applicable, or null",
+      "pattern": "most specific pattern name — low-level if available, meso-level otherwise",
+      "level": "low | meso",
+      "high_level_strategy": "Sneaking | Obstruction | Interface Interference | Forced Action | Social Engineering",
       "severity": "HIGH | MEDIUM | LOW",
       "evidence": "exact text or observation supporting this finding",
       "location": "where on the page or user journey",
@@ -165,10 +172,12 @@ Return ONLY a valid JSON object with this exact structure — no explanation, no
 
 Rules:
 - Only report patterns you have actual evidence for — do not invent findings
-- Map every finding to the three-level ontology (high → meso → low)
+- Classify at the most specific level: low-level preferred, meso-level as fallback
+- The high_level_strategy field is always filled — it provides strategic context
 - Quote exact text from evidence where possible
 - Consider both English and Turkish language signals
 - If no dark patterns found, return empty list and overall_risk: CLEAN
+- One finding per pattern instance — do not duplicate
 """
 
 
