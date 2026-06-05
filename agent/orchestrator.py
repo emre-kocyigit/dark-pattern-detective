@@ -143,24 +143,31 @@ def _execute(plan: InvestigationPlan, memory: Memory) -> bool:
     return True
 
 
-def investigate(url: str) -> OrchestratorResult:
+def investigate(url: str, progress_callback=None) -> OrchestratorResult:
     settings = load_settings()
     extractor_config = settings["llm"]["extractor"]
+
+    def notify(msg: str):
+        if progress_callback:
+            progress_callback(msg)
 
     logger.info(f"Starting investigation of {url}")
     memory = Memory(url)
 
-    # — step 1: always scrape and screenshot first —
+    # — step 1: always scrape, extract, screenshot first —
     logger.info("Step 1: initial scrape")
+    notify("🔍 Scraping page...")
     scrape_result = scrape(url)
     memory.add_scrape(scrape_result)
 
     logger.info("Step 2: initial extraction")
+    notify("🧠 Extracting signals...")
     if scrape_result.scrape_success:
         extract_result = extract(scrape_result.visible_text)
         memory.add_extraction(extract_result)
 
     logger.info("Step 3: initial screenshot")
+    notify("📸 Taking screenshot...")
     screenshot_result = take_screenshot(url)
     memory.add_screenshot(screenshot_result)
 
@@ -181,6 +188,7 @@ def investigate(url: str) -> OrchestratorResult:
             memory.add_custom("Planner failed — stopping investigation")
             break
 
+        notify(f"🕵️  Agent step {step + 1}: {plan.tool} — {plan.reason[:50]}")
         logger.info(f"Plan: {plan.tool} — {plan.reason}")
         memory.add_custom(f"Plan: {plan.tool} — {plan.reason}")
 

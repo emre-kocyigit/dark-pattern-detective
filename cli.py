@@ -19,10 +19,12 @@ app = typer.Typer(
 
 console = Console()
 
-
 def _setup_logging(verbose: bool):
     level = logging.DEBUG if verbose else logging.WARNING
     logging.basicConfig(level=level, force=True)
+    if not verbose:
+        # suppress all warnings unless verbose
+        logging.disable(logging.WARNING)
 
 
 @app.command()
@@ -48,11 +50,18 @@ def investigate(
     start = time.time()
 
     # — investigate —
-    console.print(f"[dim]⏳ Scraping and investigating — this takes 1-3 minutes...[/dim]")
+
+    
 
     investigation_result = None
     try:
-        investigation_result = run_investigation(url)
+        def on_progress(msg: str):
+            elapsed = f"{time.time() - start:.0f}s"
+            console.print(f"[dim]  {msg} ({elapsed})[/dim]", highlight=False)
+            sys.stdout.flush()
+
+        console.print(f"[dim]⏳ Scraping and investigating...[/dim]")
+        investigation_result = run_investigation(url, progress_callback=on_progress)
     except Exception as e:
         console.print(f"[red]✗ Investigation failed: {e}[/red]")
         sys.exit(1)
