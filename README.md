@@ -37,7 +37,7 @@ Most dark pattern tools are rule-based scanners or single-page classifiers. Dark
 - **Extracts** semantic signals using a hybrid LLM + rule-based approach
 - **Analyses** all accumulated evidence using a multimodal LLM
 
-The detection taxonomy is grounded in the CHI 2024 dark patterns ontology (Gray, Santos, Bielova & Mildner) — 5 high-level strategies, 25 meso-level patterns, 35 low-level patterns — with legal references to GDPR, DSA, DMA, and EU Consumer Protection law.
+The detection taxonomy is grounded in the CHI 2024 dark patterns ontology (Gray, Santos, Bielova & Mildner) with legal references to GDPR, DSA, DMA, and EU Consumer Protection law.
 
 ---
 
