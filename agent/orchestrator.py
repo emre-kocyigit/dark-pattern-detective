@@ -6,6 +6,9 @@ from agent.tools.screenshot import take_screenshot
 from agent.tools.navigator import navigate
 from agent.tools.memory import Memory
 from config.loader import load_settings
+import sys
+
+sys.setrecursionlimit(100)
 
 logger = logging.getLogger(__name__)
 
@@ -83,6 +86,12 @@ def _call_planner(url: str, summary: str, config: dict) -> InvestigationPlan | N
 
 def _execute(plan: InvestigationPlan, memory: Memory) -> bool:
     """Executes a plan step. Returns False if agent should stop."""
+
+    # hard safety limit
+    if memory.state.step_count >= MAX_STEPS:
+        logger.warning("Hard step limit reached — stopping")
+        return False
+
     tool = plan.tool
     args = plan.args
     logger.info(f"Executing: {tool} — {plan.reason}")
@@ -117,8 +126,10 @@ def _execute(plan: InvestigationPlan, memory: Memory) -> bool:
         )
         memory.add_navigation(result)
 
-        # if we landed on a new page, scrape and extract it too
-        if result.success and result.url_after != result.url_before:
+        # only scrape new pages — avoid revisiting
+        if (result.success and
+            result.url_after != result.url_before and
+            result.url_after not in memory.state.visited_urls):
             scrape_result = scrape(result.url_after)
             memory.add_scrape(scrape_result)
             extract_result = extract(scrape_result.visible_text)

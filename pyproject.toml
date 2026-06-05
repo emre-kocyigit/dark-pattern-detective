@@ -15,10 +15,15 @@ dependencies = [
     "pydantic",
     "rich",
     "python-dotenv",
+    "pyyaml",
 ]
 
 [project.scripts]
-darkpattern = "cli:app"
+darkpattern = "cli:main"
+
+[tool.setuptools]
+py-modules = ["cli"]
+
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["agent*", "llm*", "report*"]
+include = ["agent*", "llm*", "report*", "config*"]

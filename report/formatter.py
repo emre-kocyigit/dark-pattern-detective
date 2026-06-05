@@ -180,10 +180,6 @@ def print_report(
             ))
 
         console.print()
-        console.print(
-            f"[dim]Ontology: {report.ontology_reference}[/dim]"
-        )
-        console.print()
 
     if output in ("json", "both"):
         json_path = _save_json(report, url)
