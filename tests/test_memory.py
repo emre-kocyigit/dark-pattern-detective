@@ -56,7 +56,9 @@ def test_memory_get_summary():
 
 def test_memory_has_enough_evidence():
     mem = Memory("https://example.com")
-    mem.add_scrape(scrape("https://example.com"))
-    mem.add_screenshot(take_screenshot("https://example.com"))
-    mem.add_extraction(extract("Only 2 left! Accept all."))
+    # add enough steps and signals to satisfy has_enough_evidence
+    for _ in range(4):
+        mem.add_scrape(scrape("https://example.com"))
+        mem.add_screenshot(take_screenshot("https://example.com"))
+        mem.add_extraction(extract("Only 2 left! Accept all."))
     assert mem.has_enough_evidence() is True

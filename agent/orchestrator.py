@@ -1,14 +1,17 @@
+import sys
 import logging
+import json
+import ollama
 from pydantic import BaseModel
 from agent.tools.scraper import scrape
 from agent.tools.extractor import extract
 from agent.tools.screenshot import take_screenshot
 from agent.tools.navigator import navigate
 from agent.tools.memory import Memory
+from agent.prompts import PLANNER_SYSTEM
 from config.loader import load_settings
-import sys
 
-sys.setrecursionlimit(100)
+sys.setrecursionlimit(10000)
 
 logger = logging.getLogger(__name__)
 
@@ -55,8 +58,6 @@ What is your next step?
 
 
 def _call_planner(url: str, summary: str, config: dict) -> InvestigationPlan | None:
-    import json
-    import ollama
 
     prompt = PLAN_PROMPT.format(url=url, summary=summary)
 

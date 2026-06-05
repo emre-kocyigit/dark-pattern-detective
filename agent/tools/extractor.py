@@ -2,6 +2,8 @@ import logging
 import json
 from pydantic import BaseModel
 from config.loader import get_extractor_config, get_patterns_flat, load_settings
+import ollama
+from openai import OpenAI
 
 logger = logging.getLogger(__name__)
 
@@ -88,7 +90,6 @@ def _validate(result: dict) -> bool:
 
 def _call_ollama(text: str, config: dict) -> dict | None:
     try:
-        import ollama
         response = ollama.chat(
             model=config["ollama_model"],
             messages=[{

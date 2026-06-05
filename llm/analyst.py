@@ -3,6 +3,10 @@ import json
 from pydantic import BaseModel
 from agent.prompts import DARK_PATTERN_TAXONOMY
 from config.loader import get_analyst_config, load_settings
+import re
+import ollama
+from pathlib import Path
+import base64
 
 logger = logging.getLogger(__name__)
 
@@ -46,7 +50,6 @@ def _empty_report(error: str) -> AnalysisReport:
 
 
 def _parse_response(raw: str) -> dict | None:
-    import re
     try:
         raw = raw.strip()
 
@@ -83,8 +86,6 @@ def _validate(data: dict) -> bool:
 
 def _call_ollama(prompt: str, config: dict) -> dict | None:
     try:
-        import ollama
-
         # check if model supports vision
         model = config["ollama_model"]
         response = ollama.chat(
@@ -105,9 +106,6 @@ def _call_ollama_vision(
     config: dict
 ) -> dict | None:
     try:
-        import ollama
-        from pathlib import Path
-        import base64
 
         images = []
         for path in screenshot_paths[:3]:  # max 3 screenshots
