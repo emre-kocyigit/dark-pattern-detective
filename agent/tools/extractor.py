@@ -50,15 +50,24 @@ class ExtractionResult(BaseModel):
 
 
 def _parse_llm_response(raw: str) -> dict | None:
-    """Safely parse LLM response — strips markdown fences if present."""
     try:
         raw = raw.strip()
-        if raw.startswith("```"):
-            parts = raw.split("```")
-            raw = parts[1]
-            if raw.startswith("json"):
-                raw = raw[4:]
+
+        if "```json" in raw:
+            raw = raw.split("```json")[1].split("```")[0]
+        elif "```" in raw:
+            raw = raw.split("```")[1].split("```")[0]
+
+        brace_idx = raw.find("{")
+        if brace_idx > 0:
+            raw = raw[brace_idx:]
+
+        last_brace = raw.rfind("}")
+        if last_brace != -1:
+            raw = raw[:last_brace + 1]
+
         return json.loads(raw.strip())
+
     except json.JSONDecodeError as e:
         logger.warning(f"JSON parse error: {e} — raw: {raw[:200]}")
         return None

@@ -22,7 +22,6 @@ urgency:
     - "kaldı"
     - "sınırlı"
     - "acele et"
-    - "son"
     - "bugün biter"
     - "son şans"
     - "hızlı satıyor"
@@ -30,6 +29,7 @@ urgency:
     - "fırsatı kaçırma"
     - "kampanya bitiyor"
     - "stoklar tükeniyor"
+    - "sınırlı stok"
 
 subscription:
   en:

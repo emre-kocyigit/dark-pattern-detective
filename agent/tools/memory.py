@@ -184,8 +184,8 @@ class Memory:
         return "\n".join(lines)
 
     def has_enough_evidence(self) -> bool:
-        """Tells the agent when it has enough to produce a report."""
         has_screenshots = len(self.state.screenshots) > 0
+        has_visited = len(self.state.visited_urls) > 0
         has_signals = any([
             self.state.all_urgency_texts,
             self.state.all_subscription_keywords,
@@ -194,5 +194,10 @@ class Memory:
             self.state.popup_detected,
             self.state.reject_button_missing,
         ])
-        has_visited = len(self.state.visited_urls) > 0
-        return has_screenshots and has_visited and self.state.step_count >= 3
+        # require more steps AND actual signals before stopping
+        return (
+            has_screenshots and
+            has_visited and
+            self.state.step_count >= 6 and
+            has_signals
+        )

@@ -46,14 +46,28 @@ def _empty_report(error: str) -> AnalysisReport:
 
 
 def _parse_response(raw: str) -> dict | None:
+    import re
     try:
         raw = raw.strip()
-        if raw.startswith("```"):
-            parts = raw.split("```")
-            raw = parts[1]
-            if raw.startswith("json"):
-                raw = raw[4:]
+
+        # strip markdown fences
+        if "```json" in raw:
+            raw = raw.split("```json")[1].split("```")[0]
+        elif "```" in raw:
+            raw = raw.split("```")[1].split("```")[0]
+
+        # if model added preamble, find the first { 
+        brace_idx = raw.find("{")
+        if brace_idx > 0:
+            raw = raw[brace_idx:]
+
+        # find the last closing brace
+        last_brace = raw.rfind("}")
+        if last_brace != -1:
+            raw = raw[:last_brace + 1]
+
         return json.loads(raw.strip())
+
     except json.JSONDecodeError as e:
         logger.warning(f"JSON parse error: {e} — raw preview: {raw[:300]}")
         return None

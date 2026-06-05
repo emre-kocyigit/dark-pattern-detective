@@ -140,7 +140,7 @@ def _save_json(
         "gdpr_concerns": report.gdpr_concerns,
         "pattern_count": report.pattern_count,
         "language_detected": report.language_detected,
-        "ontology_reference": report.ontology_reference,
+        # "ontology_reference": report.ontology_reference,
         "dark_patterns_found": [
             f.model_dump() for f in report.dark_patterns_found
         ]
