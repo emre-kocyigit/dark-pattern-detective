@@ -153,7 +153,9 @@ darkpattern investigate --url https://www.booking.com --verbose
 
 ## Dark pattern taxonomy
 
-Detection is grounded in the CHI 2024 ontology with three levels of hierarchy:
+Detection is grounded in the dark pattern ontology proposed by Gray, Santos, Bielova & Mildner (2024) — a three-level hierarchy harmonizing 10 academic and regulatory taxonomies:
+
+> Gray, C. M., Santos, C., Bielova, N., & Mildner, T. (2024). An Ontology of Dark Patterns Knowledge: Foundations, Definitions, and a Pathway for Shared Knowledge-Building. *Proceedings of the CHI Conference on Human Factors in Computing Systems (CHI '24)*. https://doi.org/10.1145/3613904.3642436
 
 | High-level strategy | Example meso patterns | Example low-level patterns |
 |---|---|---|
