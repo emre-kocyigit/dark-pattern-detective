@@ -25,6 +25,8 @@ pricing, reference pricing, sneak into basket, and forced registration.
 └─────────────────────────┴───────┴──────────────────────┴──────────┴──────┘
 ```
 
+
+![Dark Pattern Detective - investigating booking.com for dark patterns](dp-detective-demo.png)
 ---
 
 ## What makes this different
